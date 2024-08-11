@@ -10,6 +10,16 @@ userInputWeightEl.addEventListener('click', () => {
   console.log('userInput', userInputWeightEl.value)
 })
 
+//grab the element for feeding percentage
+const userInputFeedingPercentage = document.getElementById("feedingPercentage")
+console.log(userInputFeedingPercentage)
+
+//console.log(typeof userInputFeedingPercentage)
+//code that logs the input field's value to the console at time of click
+userInputFeedingPercentage.addEventListener('click', () => {
+	console.log('userInput', userInputFeedingPercentage.value)
+})
+
 // ensure the value exists
 // save value to apply calculation of feeding
 

@@ -20,6 +20,14 @@ userInputFeedingPercentage.addEventListener('click', () => {
 	console.log('userInput', userInputFeedingPercentage.value)
 })
 
+
+//check that button is triggered when clicked
+const myDailyFeedingButton = document.getElementById("calculate-feeding")
+
+myDailyFeedingButton.addEventListener('click', () =>{
+	console.log('userClick', myDailyFeedingButton.value)
+} )
+
 // ensure the value exists
 // save value to apply calculation of feeding
 

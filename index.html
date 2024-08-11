@@ -8,7 +8,7 @@
 	<body>
 		<h2>Raw Food Calculator</h2>
 		<!-- TODO: prevent negative numbers -->
-		<label class="cat-weight-label" for="weight">
+		<label for="weight">
 			Enter your cat's weight (in pounds):
 			<input
 				class="cat-weight-input"
@@ -29,7 +29,9 @@
 			</select>
 		</label>
 
-		<!-- <button style="display: block">Calculate Daily Feeding Amount</button> -->
+		<button style="display: block" id="calculate-feeding">
+			Calculate Daily Feeding Amount
+		</button>
 
 		<div id="result" class="result" style="display: none">
 			<!-- The result will be displayed here -->

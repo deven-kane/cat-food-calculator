@@ -6,45 +6,35 @@
 	</head>
 
 	<body>
-		<div id="app">
-			<p>
-				Please enter your cats body weight in pounds. Feeding percentage will be
-				1 - 3, 1 being under weight, 2 being healthy weight, 3 being over
-				weight. Once calculated the feeding amount will be displayed in ounces.
-				<br />
-				This will be the daily feeding recommendation so split evenly between
-				two meals. This calculation is based on commercial raw cat food. If
-				making your own please refer to other references to be sure your food is
-				complete and balanced in nutrition.
-			</p>
-			<div id="container">
-				<h1>Raw Cat Food Calculator</h1>
-				<div class="input-container">
-					<label for="weight">Cat Weight:</label>
-					<input type="number" min="1" max="30" id="weight" placeholder="#" />
-				</div>
-				<div class="input-container">
-					<label for="feeding-percentage">Feeding Percentage:</label>
-					<input
-						type="number"
-						min="1"
-						max="3"
-						id="feeding-percentage"
-						placeholder=""
-					/>
-				</div>
-				<div id="result">
-					<label for="feeding-amount">Feeding Amount (in ounces):</label>
-					<input
-						type="number"
-						id="feeding-amount"
-						placeholder="Feeding Amount (oz)"
-					/>
-				</div>
-				<button id="calculate-button" type="button">Calculate</button>
-			</div>
+		<h2>Raw Food Calculator</h2>
+		<!-- TODO: prevent negative numbers -->
+		<label class="cat-weight-label" for="weight">
+			Enter your cat's weight (in pounds):
+			<input
+				class="cat-weight-input"
+				type="number"
+				id="weight"
+				placeholder="e.g., 10.7"
+				required
+			/>
+		</label>
+
+		<!-- <label for="feedingPercentage" style="display: block">
+			Select feeding percentage:
+
+			<select id="feedingPercentage">
+				<option value="4">4% - Underweight</option>
+				<option value="3">3% - Healthy weight</option>
+				<option value="2">2% - Overweight</option>
+			</select>
+		</label> -->
+
+		<!-- <button style="display: block">Calculate Daily Feeding Amount</button> -->
+
+		<div id="result" class="result" style="display: none">
+			<!-- The result will be displayed here -->
 		</div>
 
-		<script src="index.mjs"></script>
+		<script src="script.js"></script>
 	</body>
 </html>

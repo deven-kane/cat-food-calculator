@@ -3,6 +3,7 @@
 	<head>
 		<title>Raw Cat Food Calculator</title>
 		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 
 	<body>
@@ -19,23 +20,21 @@
 			/>
 		</label>
 
-		<label for="feedingPercentage" style="display: block">
+		<label for="feeding-percentage" style="display: block">
 			Select feeding percentage:
 
-			<select id="feedingPercentage">
+			<select class="cat-feeding-percentage" id="feeding-percentage">
 				<option value="4">4% - Underweight</option>
 				<option value="3">3% - Healthy weight</option>
 				<option value="2">2% - Overweight</option>
 			</select>
 		</label>
 
-		<button style="display: block" id="calculate-feeding">
+		<button style="display: block" class="calculate-feeding">
 			Calculate Daily Feeding Amount
 		</button>
 
-		<div id="result" class="result" style="display: none">
-			<!-- The result will be displayed here -->
-		</div>
+		<div class="feeding-result"></div>
 
 		<script src="script.js"></script>
 	</body>

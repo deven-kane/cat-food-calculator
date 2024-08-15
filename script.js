@@ -1,44 +1,61 @@
-// import './styles.css';
+// Grab the element for weight input
+const userInputWeightEl = document.querySelector('.cat-weight-input');
+let parsedWeightInput;
+let feedingPercentage;
+let feedingResult;
 
-// grab the element for weight input
-const userInputWeightEl = document.querySelector('.cat-weight-input')
-console.log(userInputWeightEl)
+// Get the element where the result will be displayed using a class
+const feedingResultEl = document.querySelector('.feeding-result');
 
-// console.log(typeof userInputWeightEl)
-//code that logs the input field's value to the console at time of click
-userInputWeightEl.addEventListener('click', () => {
-  console.log('userInput', userInputWeightEl.value)
-})
+// code that logs and parses the input field's value to the console at time of input
+userInputWeightEl.addEventListener('input', () => {
+    parsedWeightInput = parseFloat(userInputWeightEl.value);
+    console.log('parsedWeightInput', parsedWeightInput);
+});
 
-//grab the element for feeding percentage
-const userInputFeedingPercentage = document.getElementById("feedingPercentage")
-console.log(userInputFeedingPercentage)
+// grab the element for feeding percentage
+const userInputFeedingPercentage = document.querySelector('.cat-feeding-percentage');
+console.log('userInputFeedingPercentage', userInputFeedingPercentage);
 
-//console.log(typeof userInputFeedingPercentage)
-//code that logs the input field's value to the console at time of click
-userInputFeedingPercentage.addEventListener('click', () => {
-	console.log('userInput', userInputFeedingPercentage.value)
-})
+// code that logs and parses the input field's value to the console at time of input
+userInputFeedingPercentage.addEventListener('input', () => {
+    feedingPercentage = parseInt(userInputFeedingPercentage.value);
+    console.log('feedingPercentage (parsed)', feedingPercentage);
+});
+
+// check that button is triggered when clicked
+const myDailyFeedingButton = document.querySelector('.calculate-feeding');
+myDailyFeedingButton.addEventListener('click', () => {
+    console.log('userClick', myDailyFeedingButton);
+    console.log('userInputs: ', feedingPercentage, parsedWeightInput);
+
+    // call the function when you have the parsed weight and percentage
+    if (!isNaN(parsedWeightInput) && parsedWeightInput > 0 && !isNaN(feedingPercentage) && feedingPercentage > 0) {
+        feedingResult = calculateFeeding(parsedWeightInput, feedingPercentage);
+        console.log('Feeding Result:', feedingResult);
+
+        // Display the result on the page using a class
+        feedingResultEl.textContent = 'Daily Feeding Amount: ' + feedingResult.toFixed(2) + ' ounces';
+    } else {
+        alert('Please provide valid inputs for weight and feeding percentage.');
+    }
+});
+
+function calculateFeeding(weight, percentage) {
+    // calculate daily feeding in pounds
+    const foodInPounds = weight * (percentage / 100);
+    console.log('foodInPounds', foodInPounds);
+
+    // calculate daily feeding in ounces
+    const foodInOunces = foodInPounds * 16;
+    console.log('foodInOunces', foodInOunces);
+
+    // return foodInOunces to result variable
+    return foodInOunces;
+}
 
 
-//check that button is triggered when clicked
-const myDailyFeedingButton = document.getElementById("calculate-feeding")
 
-myDailyFeedingButton.addEventListener('click', () =>{
-	console.log('userClick', myDailyFeedingButton.value)
-} )
-
-// ensure the value exists
-// save value to apply calculation of feeding
-
-
-// const weightInput = document.getElementById('weight');
-// const feedingPercentage = document.getElementById('feeding-percentage');
-// const feedingAmount = document.getElementById('feeding-amount');
-// let calculatedResult = document.getElementById('feeding-amount');
-// let calculateButton = document
-// 	.getElementById('calculate-button')
-// 	.addEventListener('click', calculate);
 
 // too much all at once. youre trying to solve it in one go. try to isolate the steps and solve one at a time.
 // understand scope and how that impacts variable declaration + referencing
@@ -51,21 +68,21 @@ myDailyFeedingButton.addEventListener('click', () =>{
   // // 2. do you understand how and why its written the way that it is? could you delete that code and recreate it once more?
   // // 3. I can defend my logic and decisions with reason and resources as to why that apporach is valid.
 
-function calculate(weight, feedingPercentage) {
-	if (feedingPercentage === 1) {
-		let result = weight * 0.02;
-	} else if (feedingPercentage === 2) {
-		let result = weight * 0.03;
-	} else if (feedingPercentage === 3) {
-		let result = weight * 0.04;
-	}
-	return result;
-}
+// function calculate(weight, feedingPercentage) {
+// 	if (feedingPercentage === 1) {d
+// 		let result = weight * 0.02;ls
+// 	} else if (feedingPercentage === 2) {
+// 		let result = weight * 0.03;
+// 	} else if (feedingPercentage === 3) {
+// 		let result = weight * 0.04;
+// 	}
+// 	return result;
+// }
 
 // DONE: render the html outline
-// WIP: accept and capture user input
-// TODO: add event listener for calculate button
-// TODO: write function to apply user input into calculation
+// DONE: accept and capture user input
+// DONE: add event listener for calculate button
+// WIP: write function to apply user input into calculation
 // TODO: output calculated feeding amount (in oz.)
 
 userInputWeightEl

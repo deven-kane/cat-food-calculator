@@ -1,60 +1,154 @@
-// Grab the element for weight input
-const userInputWeightEl = document.querySelector('.cat-weight-input');
 let parsedWeightInput;
 let feedingPercentage;
-let feedingResult;
+let resultPerDayInPounds;
+let resultPerDayInOunces;
+let muscleMeatInPounds;
+let muscleMeatInOunces;
+let boneInPounds;
+let boneInOunces;
+let liverInPounds;
+let liverInOunces;
+let otherOrgansInPounds;
+let otherOrgansInOunces;
 
 // Get the element where the result will be displayed using a class
-const feedingResultEl = document.querySelector('.feeding-result');
+const userInputWeightEl = document.querySelector('.cat-weight-input');
+const foodInPoundsEl = document.querySelector('.meal-weight-pounds');
+const foodInOuncesEl = document.querySelector('.meal-weight-ounces');
+const muscleInPoundsEl = document.querySelector('.muscle-weight-pounds');
+const muscleInOuncesEl = document.querySelector('.muscle-weight-ounces');
+const boneInPoundsEl = document.querySelector('.bone-pounds');
+const boneInOuncesEl = document.querySelector('.bone-ounces');
+const liverInPoundsEl = document.querySelector('.liver-pounds');
+const liverInOuncesEl = document.querySelector('.liver-ounces');
+const organsInPoundsEl = document.querySelector('.organ-pounds');
+const organsInOuncesEl = document.querySelector('.organ-ounces');
 
-// code that logs and parses the input field's value to the console at time of input
+// Log and parse the input field's value to the console at time of input
 userInputWeightEl.addEventListener('input', () => {
     parsedWeightInput = parseFloat(userInputWeightEl.value);
-    console.log('parsedWeightInput', parsedWeightInput);
 });
 
-// grab the element for feeding percentage
+// Grab the element for feeding percentage
 const userInputFeedingPercentage = document.querySelector('.cat-feeding-percentage');
-console.log('userInputFeedingPercentage', userInputFeedingPercentage);
 
-// code that logs and parses the input field's value to the console at time of input
+// Log and parse the input field's value to the console at time of input
 userInputFeedingPercentage.addEventListener('input', () => {
     feedingPercentage = parseInt(userInputFeedingPercentage.value);
-    console.log('feedingPercentage (parsed)', feedingPercentage);
 });
 
-// check that button is triggered when clicked
+// Check that button is triggered when clicked
 const myDailyFeedingButton = document.querySelector('.calculate-feeding');
 myDailyFeedingButton.addEventListener('click', () => {
-    console.log('userClick', myDailyFeedingButton);
-    console.log('userInputs: ', feedingPercentage, parsedWeightInput);
 
-    // call the function when you have the parsed weight and percentage
+    // Call the function when you have the parsed weight and percentage
     if (!isNaN(parsedWeightInput) && parsedWeightInput > 0 && !isNaN(feedingPercentage) && feedingPercentage > 0) {
-        feedingResult = calculateFeeding(parsedWeightInput, feedingPercentage);
-        console.log('Feeding Result:', feedingResult);
+        // Display the result in the input field for ounces
+        resultPerDayInOunces = calculateFeeding(parsedWeightInput, feedingPercentage);
+        foodInOuncesEl.value = resultPerDayInOunces.toFixed(2);
 
-        // Display the result on the page using a class
-        feedingResultEl.textContent = 'Daily Feeding Amount: ' + feedingResult.toFixed(2) + ' ounces';
+        // Display the result in the input field for pounds
+        resultPerDayInPounds = foodPerDayInPounds(parsedWeightInput, feedingPercentage);
+        foodInPoundsEl.value = resultPerDayInPounds.toFixed(2);
+
+				// Display the result for muscle meat in pounds
+				muscleMeatInPounds = muscleMeatPounds(parsedWeightInput);
+				muscleInPoundsEl.value = muscleMeatInPounds.toFixed(2);
+
+				// Display the result for muscle meat in ounces
+				muscleMeatInOunces = muscleMeatOunces(muscleMeatInPounds);
+				muscleInOuncesEl.value = muscleMeatInOunces.toFixed(2);
+
+				//Display the result for edible bone in pounds
+				boneInPounds = bonePounds(parsedWeightInput);
+				boneInPoundsEl.value = boneInPounds.toFixed(2);
+
+				//Display the result for edible bone in ounces
+				boneInOunces = boneOunces(boneInPounds);
+				boneInOuncesEl.value = boneInOunces.toFixed(2);
+
+				//Display the result for daily liver by pounds
+				liverInPounds = liverPounds(parsedWeightInput);
+				liverInPoundsEl.value = liverInPounds.toFixed(3);
+
+				//Display the result for daily liver in ounces
+				liverInOunces = liverOunces(liverInPounds);
+				liverInOuncesEl.value = liverInOunces.toFixed(2);
+
+				//Display the result for other organs by pounds
+				otherOrgansInPounds = organPounds(parsedWeightInput);
+				organsInPoundsEl.value = otherOrgansInPounds.toFixed(3);
+
+				//Display the result for other organs in ounces
+				otherOrgansInOunces = organOunces(otherOrgansInPounds);
+				organsInOuncesEl.value = otherOrgansInOunces.toFixed(2);
+
     } else {
         alert('Please provide valid inputs for weight and feeding percentage.');
     }
 });
 
 function calculateFeeding(weight, percentage) {
-    // calculate daily feeding in pounds
+    // Calculate daily feeding in pounds
     const foodInPounds = weight * (percentage / 100);
-    console.log('foodInPounds', foodInPounds);
-
-    // calculate daily feeding in ounces
+    // Calculate daily feeding in ounces
     const foodInOunces = foodInPounds * 16;
-    console.log('foodInOunces', foodInOunces);
-
-    // return foodInOunces to result variable
+    // Return foodInOunces to result variable
     return foodInOunces;
 }
 
+function foodPerDayInPounds(weight, percentage) {
+    const foodInPounds = weight * (percentage / 100);
+    return foodInPounds;
+}
 
+function muscleMeatPounds() {
+	//Muscle Meat (in pounds)=Daily Meal Weight (in pounds)×0.80
+	const muscleMeatPounds = resultPerDayInPounds * 0.80
+	return muscleMeatPounds
+}
+
+function muscleMeatOunces() {
+//Muscle Meat (in ounces)= Muscle Meat (in pounds)x16
+const muscleMeatOunces = muscleMeatInPounds * 16
+return muscleMeatOunces
+}
+
+function bonePounds() {
+//Edible Bone (in pounds)=Daily Meal Weight (in pounds)×0.10
+	const boneByPounds = resultPerDayInPounds * 0.10
+	return boneByPounds
+}
+
+function boneOunces() {
+//Edible Bone (ounces)=bone (in pounds)×16
+	const boneByOunces = boneInPounds * 16
+	return boneByOunces
+}
+
+function liverPounds() {
+	//Liver (in pounds)=Daily Meal Weight (in pounds)×0.05
+	const liverByPounds = resultPerDayInPounds * 0.05
+	return liverByPounds
+}
+
+function liverOunces() {
+	//Liver (ounces)= liver (in pounds)x16
+	const liverByOunces = liverInPounds * 16
+	return liverByOunces
+}
+
+function organPounds() {
+	//Other Organs (in pounds)=Daily Meal Weight (in pounds)×0.05
+	const organsByPounds = resultPerDayInPounds * 0.05
+	return organsByPounds
+}
+
+function organOunces() {
+	//Other Organs (in ounces)=organs (in pounds)×16
+	const organsByOunces = otherOrgansInPounds * 16
+	return organsByOunces
+}
 
 
 // too much all at once. youre trying to solve it in one go. try to isolate the steps and solve one at a time.
